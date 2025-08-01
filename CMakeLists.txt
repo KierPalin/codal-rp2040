@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project( codal-rp2040 )
 enable_language(ASM)
 
-include("${CODAL_UTILS_LOCATION}/cmake/util.cmake")
+include("${CODAL_UTILS_LOCATION}")
 
 set(HAL_RP2040_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2040")
 set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
