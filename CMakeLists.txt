@@ -4,8 +4,11 @@ cmake_minimum_required(VERSION 3.13)
 set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
 set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
+
+
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/pico/time_adapter.h")
+list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include/hardware/timer.h")
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
