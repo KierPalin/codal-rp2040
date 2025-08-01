@@ -1,4 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
+
+# pico_sdk_init.cmake says to place this above the project() call:
+set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
+set(PICO_PLATFORM "RP2040")
+set(PICO_TARGET "PICO")
+set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
+
+# set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
+include(pico-util.cmake)
+
 project( codal-rp2040 )
 enable_language(ASM)
 
@@ -17,14 +27,9 @@ RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c"
 
 list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
-set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
-set(PICO_PLATFORM "RP2040")
-set(PICO_TARGET "PICO")
-set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
-# set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
+pico_sdk_init()
 
-include(pico-util.cmake)
 
 
 # It seems like the following are not required and they generate errors when included.
