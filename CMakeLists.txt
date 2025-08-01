@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
-enable_language(ASM)
-
 project( codal-rp2040 )
+enable_language(ASM)
 
 include("${CODAL_UTILS_LOCATION}")
 
@@ -26,11 +25,14 @@ set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 
 include(pico-util.cmake)
-include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
 
-add_subdirectory(${HAL_COMMON_ROOT})
-add_subdirectory(${HAL_RP2_COMMON_ROOT})
-add_subdirectory(${HAL_RP2040_ROOT})
+
+# It seems like the following are not required and they generate errors when included.
+# I am probably overlooking something though:
+# include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
+# add_subdirectory(${HAL_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2040_ROOT})
 
 set(TARGET_DEPS 
     cmsis_core
