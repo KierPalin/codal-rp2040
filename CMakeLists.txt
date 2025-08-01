@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 # pico_sdk_init.cmake says to place this above the project() call:
 set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
-set(PICO_PLATFORM "RP2040")
+set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
