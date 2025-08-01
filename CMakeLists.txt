@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # It seems like the following are not required and they generate errors when included.
 # I am probably overlooking something though:
-include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
+# include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
 # add_subdirectory(${HAL_COMMON_ROOT})
 # add_subdirectory(${HAL_RP2_COMMON_ROOT})
 # add_subdirectory(${HAL_RP2040_ROOT})
