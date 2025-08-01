@@ -9,7 +9,7 @@ set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/pico/time_adapter.h")
 list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include/hardware/timer.h")
-list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/hardware/timer.h")
+list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/hardware/irq.h")
 list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/common/pico_base_headers/include/pico/assert.h")
 
 
