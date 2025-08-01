@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project( codal-rp2040 )
 enable_language(ASM)
 
-include("${CODAL_UTILS_LOCATION}")
+include("${CODAL_UTILS_LOCATION}/cmake/util.cmake")
 
 set(HAL_RP2040_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2040")
 set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
@@ -29,7 +29,7 @@ include(pico-util.cmake)
 
 # It seems like the following are not required and they generate errors when included.
 # I am probably overlooking something though:
-# include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
+include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
 # add_subdirectory(${HAL_COMMON_ROOT})
 # add_subdirectory(${HAL_RP2_COMMON_ROOT})
 # add_subdirectory(${HAL_RP2040_ROOT})
