@@ -40,9 +40,9 @@ pico_sdk_init()
 # It seems like the following are not required and they generate errors when included.
 # I am probably overlooking something though:
 # include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
-# add_subdirectory(${HAL_COMMON_ROOT})
-# add_subdirectory(${HAL_RP2_COMMON_ROOT})
-# add_subdirectory(${HAL_RP2040_ROOT})
+add_subdirectory(${HAL_COMMON_ROOT})
+add_subdirectory(${HAL_RP2_COMMON_ROOT})
+add_subdirectory(${HAL_RP2040_ROOT})
 
 set(TARGET_DEPS 
     cmsis_core
@@ -71,13 +71,14 @@ include_directories(${HAL_INCLUDES})
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
-target_include_directories(codal-rp2040 PUBLIC
-    ${PICO_SDK_PATH}/src/common/pico_base_headers/include/
-    ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/
-    ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/
-    ${PICO_SDK_PATH}/src/rp2040/hardware_timer/include/
-    ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
-)
+# target_include_directories(codal-rp2040 PUBLIC
+#     ${PICO_SDK_PATH}/src/common/pico_base_headers/include/
+#     ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/
+#     ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/
+#     ${PICO_SDK_PATH}/src/rp2040/hardware_timer/include/
+#     ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
+#     ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
+# )
 
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
