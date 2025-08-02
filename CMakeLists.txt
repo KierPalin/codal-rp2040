@@ -24,8 +24,8 @@ set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
 set(HAL_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/common")
 set(HAL_HOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/host")
 
-RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
-RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
+# RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
+# RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
 RECURSIVE_FIND_DIR(TOP_LEVEL_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" "*.h")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE0 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.cpp")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c")
@@ -69,14 +69,14 @@ include_directories(${HAL_INCLUDES})
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
-# target_include_directories(codal-rp2040 PUBLIC
-#     ${PICO_SDK_PATH}/src/common/pico_base_headers/include/
-#     ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/
-#     ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/
-#     ${PICO_SDK_PATH}/src/rp2040/hardware_timer/include/
-#     ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
-#     ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
-# )
+target_include_directories(codal-rp2040 PUBLIC
+    ${PICO_SDK_PATH}/src/common/pico_base_headers/include/
+    ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/
+    ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/
+    ${PICO_SDK_PATH}/src/rp2040/hardware_timer/include/
+    ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
+    ${PICO_SDK_PATH}/src/rp2040/hardware_regs/include/regs
+)
 
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
