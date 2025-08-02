@@ -37,9 +37,10 @@ DEALINGS IN THE SOFTWARE.
 #include "ram.h"
 
 #include "hardware/gpio.h"
-// #include "hardware/structs/iobank0.h"
+#include "hardware/structs/iobank0.h"
 #include "hardware/structs/pio.h"
 #include "hardware/irq.h"
+
 
 namespace codal
 {
@@ -52,7 +53,7 @@ __force_inline void gpio_acknowledge_irq(uint gpio, uint32_t events)
 }
 
 __force_inline void _gpio_set_irq_enabled(uint gpio, uint32_t events, bool enabled,
-                                          io_irq_ctrl_hw_t *irq_ctrl_base)
+                                          pio_irq_ctrl_hw_t *irq_ctrl_base)
 {
     // Clear stale events which might cause immediate spurious handler entry
     gpio_acknowledge_irq(gpio, events);
