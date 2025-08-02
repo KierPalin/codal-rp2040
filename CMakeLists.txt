@@ -7,10 +7,7 @@ set(PICO_TARGET "PICO")
 
 
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
-list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/pico/time_adapter.h")
-list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include/hardware/timer.h")
-list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/hardware/irq.h")
-list(APPEND PICO_CONFIG_HEADER_FILES "${PICO_SDK_PATH}/src/common/pico_base_headers/include/pico/assert.h")
+
 
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
@@ -74,6 +71,13 @@ include_directories(${HAL_INCLUDES})
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
+target_include_directories(your_target PRIVATE
+    ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include
+    ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include
+    ${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include
+    ${PICO_SDK_PATH}/src/common/pico_base_headers/include
+)
+
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
 
