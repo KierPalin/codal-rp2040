@@ -24,25 +24,23 @@ set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
 set(HAL_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/common")
 set(HAL_HOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/host")
 
-# RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
-# RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
+RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
+RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
 RECURSIVE_FIND_DIR(TOP_LEVEL_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" "*.h")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE0 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.cpp")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c")
 
 list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
-
 pico_sdk_init()
-
 
 
 # It seems like the following are not required and they generate errors when included.
 # I am probably overlooking something though:
 # include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
-add_subdirectory(${HAL_COMMON_ROOT})
-add_subdirectory(${HAL_RP2_COMMON_ROOT})
-add_subdirectory(${HAL_RP2040_ROOT})
+# add_subdirectory(${HAL_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2040_ROOT})
 
 set(TARGET_DEPS 
     cmsis_core
