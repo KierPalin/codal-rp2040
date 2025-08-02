@@ -71,7 +71,7 @@ include_directories(${HAL_INCLUDES})
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
-target_include_directories(codal-rp2040 PRIVATE
+target_include_directories(codal-rp2040 PUBLIC
     ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include
     ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include
     ${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include
