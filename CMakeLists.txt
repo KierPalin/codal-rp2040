@@ -72,10 +72,10 @@ add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SO
 
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
 target_include_directories(codal-rp2040 PUBLIC
+    ${PICO_SDK_PATH}/src/common/pico_base_headers/include/pico
     ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/pico
     ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/hardware
     ${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include/hardware
-    ${PICO_SDK_PATH}/src/common/pico_base_headers/include/pico
 )
 
 
