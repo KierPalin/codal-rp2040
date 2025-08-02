@@ -37,7 +37,8 @@ DEALINGS IN THE SOFTWARE.
 #include "ram.h"
 
 #include "hardware/gpio.h"
-#include "hardware/structs/iobank0.h"
+// #include "hardware/structs/iobank0.h"
+#include "hardware/structs/pio.h"
 #include "hardware/irq.h"
 
 namespace codal
