@@ -75,7 +75,8 @@ target_include_directories(codal-rp2040 PUBLIC
     ${PICO_SDK_PATH}/src/common/pico_base_headers/include/
     ${PICO_SDK_PATH}/src/rp2_common/pico_time_adapter/include/
     ${PICO_SDK_PATH}/src/rp2_common/hardware_irq/include/
-    ${PICO_SDK_PATH}/src/rp2_common/hardware_timer/include/
+    ${PICO_SDK_PATH}/src/rp2040/hardware_timer/include/
+    ${PICO_SDK_PATH}/src/rp2040/hardware_structs/include/
 )
 
 
