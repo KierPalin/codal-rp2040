@@ -10,7 +10,9 @@ set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
 
 # include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 include(pico-util.cmake)
+pico_sdk_init()
 
 
 #CODAL:
@@ -30,7 +32,6 @@ RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c"
 
 list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
-pico_sdk_init()
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 
