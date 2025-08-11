@@ -9,7 +9,6 @@ set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
 
-# include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 include(pico-util.cmake)
 pico_sdk_init()
@@ -34,9 +33,10 @@ list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
+include("${HAL_COMMON_ROOT}/pico_base_headers/generate_config_header.cmake")
 
 
-add_subdirectory("${HAL_COMMON_ROOT}/pico_base_headers")
+# add_subdirectory("${HAL_COMMON_ROOT}/pico_base_headers")
 # add_subdirectory(${HAL_RP2_COMMON_ROOT})
 # add_subdirectory(${HAL_RP2040_ROOT})
 
