@@ -4,6 +4,7 @@ enable_language(ASM)
 
 # Setup the Pico SDK
 set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
+add_subdirectory(${PICO_SDK_PATH})
 set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
