@@ -84,7 +84,7 @@ target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} $
 
 message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 # expose it to parent cmake.
-target_include_directories(codal-rp2040 PUBLIC ${TOP_LEVEL_INCLUDE_DIRS} ${PROCESSOR_DIR_INCLUDES} ${HAL_INCLUDES})
+target_include_directories(codal-rp2040 PUBLIC ${TOP_LEVEL_INCLUDE_DIRS} ${PROCESSOR_DIR_INCLUDES} ${HAL_INCLUDES} ${PICO_SDK_PATH}/src/common/pico_base_headers/include)
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "pico_base_headers includes: ${_inc}")
