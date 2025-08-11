@@ -33,13 +33,13 @@ list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
 
 # Include everyhing in pico-sdk/src/common/pico_base_headers/include/
-set(HAL_INCLUDES
-    ${HAL_RP2040_ROOT}/include
-    ${HAL_RP2_COMMON_ROOT}/include
-    ${HAL_COMMON_ROOT}/include
-    ${HAL_HOST_ROOT}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/inc
-)
+# set(HAL_INCLUDES
+#     ${HAL_RP2040_ROOT}/include
+#     ${HAL_RP2_COMMON_ROOT}/include
+#     ${HAL_COMMON_ROOT}/include
+#     ${HAL_HOST_ROOT}/include
+#     ${CMAKE_CURRENT_SOURCE_DIR}/inc
+# )
 
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
@@ -77,6 +77,7 @@ include_directories(${HAL_INCLUDES})
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 
+target_link_libraries(codal-rp2040 pico_base_headers)
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
