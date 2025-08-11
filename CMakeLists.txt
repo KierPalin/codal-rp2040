@@ -9,6 +9,7 @@ set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
 
+add_compile_definitions(PARAM_ASSERTIONS_ENABLE_ALL=1)
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 include(pico-util.cmake)
 pico_sdk_init()
@@ -79,9 +80,6 @@ include_directories(${HAL_INCLUDES})
 
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
-target_compile_definitions(codal-rp2040 PUBLIC
-    PARAM_ASSERTIONS_ENABLED_ALL=1
-)
 target_link_libraries(codal-rp2040 pico_base_headers)
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
 
