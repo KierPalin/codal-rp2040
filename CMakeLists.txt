@@ -8,8 +8,6 @@ set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
-
-add_compile_definitions(PARAM_ASSERTIONS_ENABLE_ALL=1, PARAM_ASSERTIONS_ENABLED_PIO=1)
 include(pico-util.cmake)
 
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
