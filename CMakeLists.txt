@@ -9,7 +9,7 @@ set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 
 
-# add_compile_definitions(PARAM_ASSERTIONS_ENABLE_ALL=1, PARAM_ASSERTIONS_ENABLED_PIO=1)
+add_compile_definitions(PARAM_ASSERTIONS_ENABLE_ALL=1, PARAM_ASSERTIONS_ENABLED_PIO=1)
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 include(pico-util.cmake)
 pico_sdk_init()
@@ -34,13 +34,13 @@ list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 
 
 # Include everyhing in pico-sdk/src/common/pico_base_headers/include/
-# set(HAL_INCLUDES
-#     ${HAL_RP2040_ROOT}/include
-#     ${HAL_RP2_COMMON_ROOT}/include
-#     ${HAL_COMMON_ROOT}/include
-#     ${HAL_HOST_ROOT}/include
-#     ${CMAKE_CURRENT_SOURCE_DIR}/inc
-# )
+set(HAL_INCLUDES
+    ${HAL_RP2040_ROOT}/include
+    ${HAL_RP2_COMMON_ROOT}/include
+    ${HAL_COMMON_ROOT}/include
+    ${HAL_HOST_ROOT}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+)
 
 
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
