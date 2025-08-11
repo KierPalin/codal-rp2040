@@ -70,7 +70,14 @@ set(TARGET_DEPS
     hardware_divider
     pico_runtime
     pico_float
-    pico_double)
+    pico_double
+)
+
+target_compile_definitions(codal-rp2040 PUBLIC
+    PARAM_ASSERTIONS_ENABLED_PIO=1
+    PARAM_ASSERTIONS_ENABLED_ALL=1
+)
+
 
 include_directories(${HAL_INCLUDES})
 
@@ -92,9 +99,6 @@ target_include_directories(
   ${HAL_INCLUDES}
 )
 
-target_compile_definitions(codal-rp2040 PUBLIC
-    PARAM_ASSERTIONS_ENABLED_PIO=1
-)
 
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
