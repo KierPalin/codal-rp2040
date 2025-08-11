@@ -4,7 +4,6 @@ enable_language(ASM)
 
 # Setup the Pico SDK
 set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
-add_subdirectory(${PICO_SDK_PATH})
 set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
@@ -86,3 +85,6 @@ target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} $
 message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 # expose it to parent cmake.
 target_include_directories(codal-rp2040 PUBLIC ${TOP_LEVEL_INCLUDE_DIRS} ${PROCESSOR_DIR_INCLUDES} ${HAL_INCLUDES})
+
+get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
+message(STATUS "pico_base_headers includes: ${_inc}")
