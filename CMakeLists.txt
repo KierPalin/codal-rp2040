@@ -90,8 +90,10 @@ target_include_directories(
   ${TOP_LEVEL_INCLUDE_DIRS}
   ${PROCESSOR_DIR_INCLUDES}
   ${HAL_INCLUDES}
-  ${PICO_SDK_PATH}/src/common/pico_base_headers/include
-  ${PICO_SDK_PATH}/src/rp2_common/hardware_pio/include
+)
+
+target_compile_definitions(codal-rp2040 PUBLIC
+    PARAM_ASSERTIONS_ENABLED_PIO=1
 )
 
 
