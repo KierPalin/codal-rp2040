@@ -23,6 +23,14 @@ set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
 set(HAL_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/common")
 set(HAL_HOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/host")
 
+set(HAL_STRUCTS_RP2040  "${PICO_SDK_PATH}/src/rp2040/hardware_structs/include")
+set(HAL_STRUCTS_RP2     "${PICO_SDK_PATH}/src/rp2_common/hardware_structs/include")
+set(HAL_REGS_RP2040     "${PICO_SDK_PATH}/src/rp2040/hardware_regs/include")
+set(HAL_REGS_RP2        "${PICO_SDK_PATH}/src/rp2_common/hardware_regs/include")
+set(PICO_BASE_HDRS      "${PICO_SDK_PATH}/src/common/pico_base_headers/include")
+set(RP2_COMMON_INC      "${PICO_SDK_PATH}/src/rp2_common/include")
+
+
 RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
 RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
 RECURSIVE_FIND_DIR(TOP_LEVEL_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" "*.h")
@@ -38,6 +46,15 @@ set(HAL_INCLUDES
     ${HAL_RP2_COMMON_ROOT}/include
     ${HAL_COMMON_ROOT}/include
     ${HAL_HOST_ROOT}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+
+    ${HAL_STRUCTS_RP2040}
+    ${HAL_STRUCTS_RP2}
+    ${HAL_REGS_RP2040}
+    ${HAL_REGS_RP2}
+    ${PICO_BASE_HDRS}
+    ${RP2_COMMON_INC}
+
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
@@ -73,13 +90,12 @@ set(TARGET_DEPS
     pico_double
 )
 
-
-
-include_directories(${HAL_INCLUDES})
+message(STATUS "HAL_INCLUDES: ${HAL_INCLUDES}")
+# include_directories(${HAL_INCLUDES})
 
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
-target_link_libraries(codal-rp2040 pico_base_headers)
+# target_link_libraries(codal-rp2040 pico_base_headers)
 target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
@@ -89,17 +105,11 @@ message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 get_target_property(PICO_BASE_HEADERS_INCLUDES pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 
 # expose it to parent cmake.
-target_include_directories(
-  codal-rp2040 PUBLIC
+target_include_directories(codal-rp2040 PUBLIC
+  ${PICO_BASE_HEADERS_INCLUDES}
+  ${HAL_INCLUDES}
   ${TOP_LEVEL_INCLUDE_DIRS}
   ${PROCESSOR_DIR_INCLUDES}
-  ${HAL_INCLUDES}
-  ${PICO_BASE_HEADERS_INCLUDES}
-  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/include"
-  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/common/pico_base/include"
-  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/common/include"
-  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/hardware_gpio/include"
-  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/hardware_gpio/include/host/hardware_gpio/include/hardware"
 )
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
