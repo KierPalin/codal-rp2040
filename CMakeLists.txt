@@ -96,17 +96,38 @@ message(STATUS "HAL_INCLUDES: ${HAL_INCLUDES}")
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 # target_link_libraries(codal-rp2040 pico_base_headers)
-target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
+# target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
+
+
+target_link_libraries(codal-rp2040
+  PUBLIC
+    pico_base_headers
+    pico_stdlib
+  PRIVATE
+    codal-core
+    ${OBJECT_FILES}
+    ${ARCHIVE_FILES}
+    ${TARGET_DEPS}
+)
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
 
 message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 
-get_target_property(PICO_BASE_HEADERS_INCLUDES pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
+# get_target_property(PICO_BASE_HEADERS_INCLUDES pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
+#
+# # expose it to parent cmake.
+# target_include_directories(codal-rp2040 PUBLIC
+#   ${PICO_BASE_HEADERS_INCLUDES}
+#   ${HAL_INCLUDES}
+#   ${TOP_LEVEL_INCLUDE_DIRS}
+#   ${PROCESSOR_DIR_INCLUDES}
+# )
 
-# expose it to parent cmake.
+
+# expose includes (use generator-expr to reliably pick up pico_base_headers' INTERFACE include dirs)
 target_include_directories(codal-rp2040 PUBLIC
-  ${PICO_BASE_HEADERS_INCLUDES}
+  $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
   ${HAL_INCLUDES}
   ${TOP_LEVEL_INCLUDE_DIRS}
   ${PROCESSOR_DIR_INCLUDES}
