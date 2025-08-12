@@ -127,8 +127,10 @@ message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 # )
 
 
-# expose includes (use generator-expr to reliably pick up pico_base_headers' INTERFACE include dirs)
-
+target_compile_options(codal-rp2040 PUBLIC
+  "-include" "${PICO_SDK_PATH}/src/rp2_common/hardware_structs/include/hardware/structs/io_irq_ctrl.h"
+  "-include" "${PICO_SDK_PATH}/src/rp2_common/hardware_structs/include/hardware/structs/iobank0.h"
+)
 target_include_directories(codal-rp2040 PUBLIC
   $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
 
