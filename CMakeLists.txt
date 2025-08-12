@@ -7,47 +7,26 @@ set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
 set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
-
-include(pico-util.cmake)
-
-include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
-pico_sdk_init()
-
-
-#CODAL:
-include("${CODAL_UTILS_LOCATION}")
-
 set(PICO_SRC_RP2040      "${PICO_SDK_PATH}/src/rp2040")
 set(PICO_SRC_RP2_COMMON  "${PICO_SDK_PATH}/src/rp2_common")
 set(PICO_SRC_COMMON      "${PICO_SDK_PATH}/src/common")
 set(PICO_SRC_HOST        "${PICO_SDK_PATH}/src/host")
 
-# set(HAL_INCLUDES
-#     "${PICO_SRC_RP2040}/hardware_structs/include"
-#     "${PICO_SRC_RP2_COMMON}/hardware_structs/include"
-#     "${PICO_SRC_RP2040}/hardware_regs/include"
-#     "${PICO_SRC_RP2_COMMON}/hardware_regs/include"
-#     "${PICO_SRC_COMMON}/pico_base_headers/include"
-#     "${PICO_SRC_RP2_COMMON}/include"
-# )
-#
-# # Required for RP2040.h:
-# set(CMSIS_INCLUDES
-#     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RP2040/Include"
-#     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Core/Include"
-#     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Include"
-# )
-#
-# list(APPEND HAL_INCLUDES ${CMSIS_INCLUDES})
+include(pico-util.cmake)
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+pico_sdk_init()
+
+include("${CODAL_UTILS_LOCATION}")
 
 
-RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
-RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
+# RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
+# RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
 RECURSIVE_FIND_DIR(TOP_LEVEL_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" "*.h")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE0 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.cpp")
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c")
 
 list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
+
 
 set(HAL_INCLUDES
     "${PICO_SRC_RP2040}/hardware_structs/include"
@@ -103,9 +82,6 @@ set(TARGET_DEPS
 
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
-# target_link_libraries(codal-rp2040 pico_base_headers)
-# target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
-
 
 target_link_libraries(codal-rp2040
   PUBLIC
@@ -134,29 +110,6 @@ target_include_directories(codal-rp2040 PUBLIC
   ${CMSIS_CORE_INCLUDE}
   ${CMSIS_INCLUDE}
 )
-
-# target_include_directories(codal-rp2040 PUBLIC
-#   # generated config + pico_base headers
-#   $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # CMSIS device/includes (needed for RP2040.h)
-#   "${CMSIS_DEVICE_INCLUDE}"
-#   "${CMSIS_CORE_INCLUDE}"
-#   "${CMSIS_INCLUDE}"
-#
-#   # make the SDK's hardware_structs / hardware_regs interface directories absolutely explicit
-#   $<TARGET_PROPERTY:hardware_structs,INTERFACE_INCLUDE_DIRECTORIES>
-#   $<TARGET_PROPERTY:hardware_regs,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # also pull in device-specific and peripheral interface dirs
-#   $<TARGET_PROPERTY:hardware_gpio,INTERFACE_INCLUDE_DIRECTORIES>
-#   $<TARGET_PROPERTY:hardware_irq,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # finally your fallback/manual SDK paths (keeps previous behavior)
-#   ${HAL_INCLUDES}
-#   ${TOP_LEVEL_INCLUDE_DIRS}
-#   ${PROCESSOR_DIR_INCLUDES}
-# )
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "pico_base_headers includes: ${_inc}")
