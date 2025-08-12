@@ -79,7 +79,7 @@ COPY void gpio_set_function_(uint gpio, gpio_function_t fn)
     invalid_params_if(GPIO, ((uint32_t)fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB) &
                                 ~IO_BANK0_GPIO0_CTRL_FUNCSEL_BITS);
     // Set input enable on, output disable off
-    hw_write_masked(&padsbank0_hw->io[gpio], PADS_BANK0_GPIO0_IE_BITS,
+    hw_write_masked(&pads_bank0_hw->io[gpio], PADS_BANK0_GPIO0_IE_BITS,
                     PADS_BANK0_GPIO0_IE_BITS | PADS_BANK0_GPIO0_OD_BITS);
     // Zero all fields apart from fsel; we want this IO to do what the peripheral tells it.
     // This doesn't affect e.g. pullup/pulldown, as these are in pad controls.
@@ -96,7 +96,7 @@ COPY void gpio_init(uint gpio)
 __force_inline void gpio_set_pulls(uint gpio, bool up, bool down)
 {
     invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
-    hw_write_masked(&padsbank0_hw->io[gpio],
+    hw_write_masked(&pads_bank0_hw->io[gpio],
                     (bool_to_bit(up) << PADS_BANK0_GPIO0_PUE_LSB) |
                         (bool_to_bit(down) << PADS_BANK0_GPIO0_PDE_LSB),
                     PADS_BANK0_GPIO0_PUE_BITS | PADS_BANK0_GPIO0_PDE_BITS);
@@ -112,7 +112,7 @@ extern "C"
             &io_bank0_hw->proc0_irq_ctrl; // assume io irq only on core0
         for (uint gpio = 0; gpio < NUM_BANK0_GPIOS; gpio++)
         {
-            io_rw_32 *status_reg = &irq_ctrl_base->ints[gpio / 8];
+            io_ro_32 *status_reg = &irq_ctrl_base->ints[gpio / 8];
             uint events = (*status_reg >> 4 * (gpio % 8)) & 0xf;
             if (events)
             {
