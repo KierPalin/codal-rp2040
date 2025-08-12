@@ -37,7 +37,7 @@ DEALINGS IN THE SOFTWARE.
 #include "ram.h"
 
 #include "hardware/gpio.h"
-#include "hardware/structs/iobank0.h"
+#include "hardware/structs/io_bank0.h"
 #include "hardware/structs/pio.h"
 #include "hardware/irq.h"
 
@@ -74,7 +74,7 @@ COPY void gpio_set_irq_enabled(uint gpio, uint32_t events, bool enabled)
     _gpio_set_irq_enabled(gpio, events, enabled, irq_ctrl_base);
 }
 
-COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
+COPY void gpio_set_function_(uint gpio, enum gpio_function_t fn)
 {
     invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
     invalid_params_if(GPIO, ((uint32_t)fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB) &

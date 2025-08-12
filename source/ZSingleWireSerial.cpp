@@ -28,7 +28,7 @@ __attribute__((used)) COPY static void pulse_log(void)
 namespace codal
 {
 
-COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
+COPY void gpio_set_function_(uint gpio, enum gpio_function_t  fn)
 {
     invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
     invalid_params_if(GPIO, ((uint32_t)fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB) &
