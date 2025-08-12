@@ -1,7 +1,7 @@
 #ifndef RP2040_LOW_LEVEL_TIMER_H
 #define RP2040_LOW_LEVEL_TIMER_H
 
-// #include "RP2040.h"
+#include "RP2040.h"
 #include "LowLevelTimer.h"
 #include "hardware/structs/timer.h"
 
