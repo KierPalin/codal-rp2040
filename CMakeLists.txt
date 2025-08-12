@@ -103,6 +103,7 @@ target_link_libraries(codal-rp2040
   PUBLIC
     pico_base_headers
     pico_stdlib
+    hardware_structs
   PRIVATE
     codal-core
     ${OBJECT_FILES}
