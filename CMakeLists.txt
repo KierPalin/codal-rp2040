@@ -30,6 +30,7 @@ set(HAL_REGS_RP2        "${PICO_SDK_PATH}/src/rp2_common/hardware_regs/include")
 set(PICO_BASE_HDRS      "${PICO_SDK_PATH}/src/common/pico_base_headers/include")
 set(RP2_COMMON_INC      "${PICO_SDK_PATH}/src/rp2_common/include")
 set(CMSIS_DEVICE_INCLUDE "${PICO_SDK_PATH}/src/rp2_common/cmsis/stub/CMSIS/Device/RP2040/Include")
+set(CMSIS_CORE_INCLUDE "${PICO_SDK_PATH}/src/rp2_common/cmsis/stub/CMSIS/Core/Include")
 set(CMSIS_INCLUDE        "${PICO_SDK_PATH}/src/rp2_common/cmsis/stub/CMSIS/Include")
 
 
@@ -145,6 +146,7 @@ target_include_directories(codal-rp2040 PUBLIC
 
   # CMSIS device/includes (needed for RP2040.h)
   "${CMSIS_DEVICE_INCLUDE}"
+  "${CMSIS_CORE_INCLUDE}"
   "${CMSIS_INCLUDE}"
 
   # make the SDK's hardware_structs / hardware_regs interface directories absolutely explicit
