@@ -116,39 +116,39 @@ target_link_libraries(codal-rp2040
 message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 
 # expose it to parent cmake.
-target_include_directories(codal-rp2040 PUBLIC
-  ${PICO_BASE_HEADERS_INCLUDES}
-  ${HAL_INCLUDES}
-  ${TOP_LEVEL_INCLUDE_DIRS}
-  ${PROCESSOR_DIR_INCLUDES}
-  ${CMSIS_DEVICE_INCLUDE}
-  ${CMSIS_CORE_INCLUDE}
-  ${CMSIS_INCLUDE}
-)
-
-
 # target_include_directories(codal-rp2040 PUBLIC
-#   # generated config + pico_base headers
-#   $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # CMSIS device/includes (needed for RP2040.h)
-#   "${CMSIS_DEVICE_INCLUDE}"
-#   "${CMSIS_CORE_INCLUDE}"
-#   "${CMSIS_INCLUDE}"
-#
-#   # make the SDK's hardware_structs / hardware_regs interface directories absolutely explicit
-#   $<TARGET_PROPERTY:hardware_structs,INTERFACE_INCLUDE_DIRECTORIES>
-#   $<TARGET_PROPERTY:hardware_regs,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # also pull in device-specific and peripheral interface dirs
-#   $<TARGET_PROPERTY:hardware_gpio,INTERFACE_INCLUDE_DIRECTORIES>
-#   $<TARGET_PROPERTY:hardware_irq,INTERFACE_INCLUDE_DIRECTORIES>
-#
-#   # finally your fallback/manual SDK paths (keeps previous behavior)
+#   ${PICO_BASE_HEADERS_INCLUDES}
 #   ${HAL_INCLUDES}
 #   ${TOP_LEVEL_INCLUDE_DIRS}
 #   ${PROCESSOR_DIR_INCLUDES}
+#   ${CMSIS_DEVICE_INCLUDE}
+#   ${CMSIS_CORE_INCLUDE}
+#   ${CMSIS_INCLUDE}
 # )
+#
+
+target_include_directories(codal-rp2040 PUBLIC
+  # generated config + pico_base headers
+  $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
+
+  # CMSIS device/includes (needed for RP2040.h)
+  "${CMSIS_DEVICE_INCLUDE}"
+  "${CMSIS_CORE_INCLUDE}"
+  "${CMSIS_INCLUDE}"
+
+  # make the SDK's hardware_structs / hardware_regs interface directories absolutely explicit
+  $<TARGET_PROPERTY:hardware_structs,INTERFACE_INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:hardware_regs,INTERFACE_INCLUDE_DIRECTORIES>
+
+  # also pull in device-specific and peripheral interface dirs
+  $<TARGET_PROPERTY:hardware_gpio,INTERFACE_INCLUDE_DIRECTORIES>
+  $<TARGET_PROPERTY:hardware_irq,INTERFACE_INCLUDE_DIRECTORIES>
+
+  # finally your fallback/manual SDK paths (keeps previous behavior)
+  ${HAL_INCLUDES}
+  ${TOP_LEVEL_INCLUDE_DIRS}
+  ${PROCESSOR_DIR_INCLUDES}
+)
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "pico_base_headers includes: ${_inc}")
