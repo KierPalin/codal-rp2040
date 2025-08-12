@@ -98,18 +98,19 @@ add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SO
 # target_link_libraries(codal-rp2040 pico_base_headers)
 # target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
 
-
 target_link_libraries(codal-rp2040
   PUBLIC
     pico_base_headers
     pico_stdlib
     hardware_structs
+    hardware_regs
   PRIVATE
     codal-core
     ${OBJECT_FILES}
     ${ARCHIVE_FILES}
     ${TARGET_DEPS}
 )
+
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -127,12 +128,21 @@ message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 
 
 # expose includes (use generator-expr to reliably pick up pico_base_headers' INTERFACE include dirs)
+
 target_include_directories(codal-rp2040 PUBLIC
   $<TARGET_PROPERTY:pico_base_headers,INTERFACE_INCLUDE_DIRECTORIES>
+
+  # Ensure both rp2_common and rp2040 structs/regs are present for sources that use iobank0/io_irq types:
+  "${PICO_SDK_PATH}/src/rp2_common/hardware_structs/include"
+  "${PICO_SDK_PATH}/src/rp2_common/hardware_regs/include"
+  "${PICO_SDK_PATH}/src/rp2040/hardware_structs/include"
+  "${PICO_SDK_PATH}/src/rp2040/hardware_regs/include"
+
   ${HAL_INCLUDES}
   ${TOP_LEVEL_INCLUDE_DIRS}
   ${PROCESSOR_DIR_INCLUDES}
 )
+
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "pico_base_headers includes: ${_inc}")
