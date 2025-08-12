@@ -37,7 +37,7 @@ DEALINGS IN THE SOFTWARE.
 #include "ram.h"
 
 #include "hardware/gpio.h"
-#include "hardware/structs/iobank0.h"
+#include "hardware/structs/io_bank0.h"
 #include "hardware/irq.h"
 
 namespace codal
@@ -47,11 +47,11 @@ namespace codal
 
 __force_inline void gpio_acknowledge_irq(uint gpio, uint32_t events)
 {
-    iobank0_hw->intr[gpio / 8] = events << 4 * (gpio % 8);
+    io_bank0_hw->intr[gpio / 8] = events << 4 * (gpio % 8);
 }
 
 __force_inline void _gpio_set_irq_enabled(uint gpio, uint32_t events, bool enabled,
-                                          io_irq_ctrl_hw_t *irq_ctrl_base)
+                                          io_bank0_irq_ctrl_hw_t *irq_ctrl_base)
 {
     // Clear stale events which might cause immediate spurious handler entry
     gpio_acknowledge_irq(gpio, events);
@@ -69,11 +69,11 @@ COPY void gpio_set_irq_enabled(uint gpio, uint32_t events, bool enabled)
 {
     // Separate mask/force/status per-core, so check which core called, and
     // set the relevant IRQ controls.
-    io_irq_ctrl_hw_t *irq_ctrl_base = &iobank0_hw->proc0_irq_ctrl;
+    io_bank0_irq_ctrl_hw_t *irq_ctrl_base = &io_bank0_hw->proc0_irq_ctrl;
     _gpio_set_irq_enabled(gpio, events, enabled, irq_ctrl_base);
 }
 
-COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
+COPY void gpio_set_function_(uint gpio, gpio_function_t fn)
 {
     invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
     invalid_params_if(GPIO, ((uint32_t)fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB) &
@@ -83,7 +83,7 @@ COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
                     PADS_BANK0_GPIO0_IE_BITS | PADS_BANK0_GPIO0_OD_BITS);
     // Zero all fields apart from fsel; we want this IO to do what the peripheral tells it.
     // This doesn't affect e.g. pullup/pulldown, as these are in pad controls.
-    iobank0_hw->io[gpio].ctrl = fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB;
+    io_bank0_hw->io[gpio].ctrl = fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB;
 }
 
 COPY void gpio_init(uint gpio)
@@ -108,8 +108,8 @@ extern "C"
     REAL_TIME_FUNC
     void isr_io_bank0()
     {
-        io_irq_ctrl_hw_t *irq_ctrl_base =
-            &iobank0_hw->proc0_irq_ctrl; // assume io irq only on core0
+        io_bank0_irq_ctrl_hw_t *irq_ctrl_base =
+            &io_bank0_hw->proc0_irq_ctrl; // assume io irq only on core0
         for (uint gpio = 0; gpio < NUM_BANK0_GPIOS; gpio++)
         {
             io_rw_32 *status_reg = &irq_ctrl_base->ints[gpio / 8];

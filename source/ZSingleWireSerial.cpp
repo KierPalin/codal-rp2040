@@ -11,7 +11,7 @@
 #include "jacdac.pio.h"
 #include "dma.h"
 #include "ram.h"
-#include "hardware/structs/iobank0.h"
+#include "hardware/structs/io_bank0.h"
 
 #include "codal_target_hal.h"
 
@@ -28,7 +28,7 @@ __attribute__((used)) COPY static void pulse_log(void)
 namespace codal
 {
 
-COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
+COPY void gpio_set_function_(uint gpio, gpio_function_t fn)
 {
     invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
     invalid_params_if(GPIO, ((uint32_t)fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB) &
@@ -38,7 +38,7 @@ COPY void gpio_set_function_(uint gpio, enum gpio_function fn)
                     PADS_BANK0_GPIO0_IE_BITS | PADS_BANK0_GPIO0_OD_BITS);
     // Zero all fields apart from fsel; we want this IO to do what the peripheral tells it.
     // This doesn't affect e.g. pullup/pulldown, as these are in pad controls.
-    iobank0_hw->io[gpio].ctrl = fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB;
+    io_bank0_hw->io[gpio].ctrl = fn << IO_BANK0_GPIO0_CTRL_FUNCSEL_LSB;
 }
 
 COPY void gpio_set_pulls_(uint gpio, bool up, bool down)
