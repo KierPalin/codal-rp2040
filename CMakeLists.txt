@@ -80,12 +80,11 @@ include_directories(${HAL_INCLUDES})
 # create our target
 add_library(codal-rp2040 ${TOP_LEVEL_SOURCE} ${TOP_LEVEL_SOURCE0} ${TOP_LEVEL_SOURCE1} ${HAL_SOURCE})
 target_link_libraries(codal-rp2040 pico_base_headers)
-target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS})
+target_link_libraries(codal-rp2040 codal-core ${OBJECT_FILES} ${ARCHIVE_FILES} ${TARGET_DEPS} pico_stdlib)
 
 #set_target_properties(codal-samd PROPERTIES LINKER_LANGUAGE CXX)
 
 message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
-
 
 get_target_property(PICO_BASE_HEADERS_INCLUDES pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 
@@ -96,9 +95,12 @@ target_include_directories(
   ${PROCESSOR_DIR_INCLUDES}
   ${HAL_INCLUDES}
   ${PICO_BASE_HEADERS_INCLUDES}
+  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/include"
+  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/common/pico_base/include"
+  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/common/include"
+  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/hardware_gpio/include"
+  "${CMAKE_SOURCE_DIR}/libraries/codal-rp2040/pico-sdk/src/rp2_common/hardware_gpio/include/host/hardware_gpio/include/hardware"
 )
-
-
 
 get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "pico_base_headers includes: ${_inc}")
