@@ -95,7 +95,9 @@ target_link_libraries(codal-rp2040
     ${TARGET_DEPS}
 )
 
-message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
+pico_add_extra_outputs(codal-rp2040)
+
+# message("${PROCESSOR_DIR_INCLUDES} ${TOP_LEVEL_INCLUDE_DIRS}")
 
 # expose it to parent cmake.
 target_include_directories(codal-rp2040 PUBLIC
