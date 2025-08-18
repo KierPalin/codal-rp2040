@@ -11,7 +11,7 @@
 #include "jacdac.pio.h"
 #include "dma.h"
 #include "ram.h"
-#include "hardware/structs/io_bank0.h"
+#include "hardware/structs/iobank0.h"
 
 #include "codal_target_hal.h"
 
