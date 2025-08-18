@@ -35,7 +35,7 @@ set(HAL_INCLUDES
 
     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RP2040/Include"
     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Core/Include"
-    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RP2040/Include"
+    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Include"
 
     ${HAL_RP2040_ROOT}/include
     ${HAL_RP2_COMMON_ROOT}/include
