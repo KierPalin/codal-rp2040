@@ -2,7 +2,7 @@
 #define RP2040_LOW_LEVEL_TIMER_H
 
 #include "LowLevelTimer.h"
-#include "RP2040.h"
+// #include "RP2040.h"
 #include "hardware/structs/timer.h"
 
 #define TIMER_CHANNEL_COUNT 4
