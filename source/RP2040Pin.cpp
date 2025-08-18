@@ -112,7 +112,7 @@ extern "C"
             &iobank0_hw->proc0_irq_ctrl; // assume io irq only on core0
         for (uint gpio = 0; gpio < NUM_BANK0_GPIOS; gpio++)
         {
-            io_rw_32 *status_reg = &irq_ctrl_base->ints[gpio / 8];
+            io_ro_32 *status_reg = &irq_ctrl_base->ints[gpio / 8];
             uint events = (*status_reg >> 4 * (gpio % 8)) & 0xf;
             if (events)
             {
