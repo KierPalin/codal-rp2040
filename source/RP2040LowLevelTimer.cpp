@@ -27,7 +27,7 @@ inline uint alarm_irq_number(uint8_t num)
 inline int alarms_enabled()
 {
     int count = 0;
-    for (int i = 0; i < NUM_TIMERS; i++)
+    for (unsigned int i = 0; i < NUM_TIMERS; i++)
         count += NVIC_GetEnableIRQ((IRQn_Type)alarm_irq_number(i));
     return count;
 }
@@ -79,14 +79,14 @@ RP2040LowLevelTimer::RP2040LowLevelTimer() : LowLevelTimer(3)
 
 int RP2040LowLevelTimer::setIRQPriority(int priority)
 {
-    for (int i = 0; i < NUM_TIMERS; i++)
+    for (unsigned int i = 0; i < NUM_TIMERS; i++)
         NVIC_SetPriority((IRQn_Type)alarm_irq_number(i), priority);
     return DEVICE_OK;
 }
 
 int RP2040LowLevelTimer::enable()
 {
-    for (int i = 0; i < NUM_TIMERS; i++)
+    for (unsigned int i = 0; i < NUM_TIMERS; i++)
         NVIC_ClearPendingIRQ((IRQn_Type)alarm_irq_number(i));
 
     timer_hw->pause = 0;
