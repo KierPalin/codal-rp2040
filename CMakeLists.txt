@@ -10,6 +10,11 @@ set(HAL_RP2_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/rp2_common")
 set(HAL_COMMON_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/common")
 set(HAL_HOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk/src/host")
 
+include(pico-util.cmake)
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+pico_sdk_init()
+
+
 # RECURSIVE_FIND_DIR(PROCESSOR_DIR_INCLUDES "${PROCESSOR_INCLUDE_ROOT}", "*.h")
 # RECURSIVE_FIND_DIR(HAL_DIR_INCLUDES "${PROCESSOR_INCLUDES}", "*.h")
 RECURSIVE_FIND_DIR(TOP_LEVEL_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" "*.h")
@@ -32,7 +37,7 @@ add_subdirectory(${HAL_COMMON_ROOT})
 add_subdirectory(${HAL_RP2_COMMON_ROOT})
 add_subdirectory(${HAL_RP2040_ROOT})
 
-set(TARGET_DEPS 
+set(TARGET_DEPS
     cmsis_core
     hardware_sync
     hardware_irq
