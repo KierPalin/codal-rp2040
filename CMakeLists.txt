@@ -26,13 +26,17 @@ set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 
 include(pico-util.cmake)
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+pico_sdk_init()
+
+
 include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
 
 add_subdirectory(${HAL_COMMON_ROOT})
 add_subdirectory(${HAL_RP2_COMMON_ROOT})
 add_subdirectory(${HAL_RP2040_ROOT})
 
-set(TARGET_DEPS 
+set(TARGET_DEPS
     cmsis_core
     hardware_sync
     hardware_irq
