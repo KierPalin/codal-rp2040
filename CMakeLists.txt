@@ -33,7 +33,7 @@ set(HAL_INCLUDES
     "${PICO_SRC_COMMON}/pico_base_headers/include"
     "${PICO_SRC_RP2_COMMON}/include"
 
-    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RP2040/Include"
+    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RaspberryPi/RP2040/Include"
     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Core/Include"
     "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Include"
 
@@ -107,6 +107,3 @@ target_include_directories(codal-rp2040 PUBLIC
   ${CMSIS_CORE_INCLUDE}
   ${CMSIS_INCLUDE}
 )
-
-get_target_property(_inc pico_base_headers INTERFACE_INCLUDE_DIRECTORIES)
-message(STATUS "pico_base_headers includes: ${_inc}")
