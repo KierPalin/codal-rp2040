@@ -1,7 +1,17 @@
 cmake_minimum_required(VERSION 3.13)
+project(codal-rp2040)
 enable_language(ASM)
 
-project( codal-rp2040 )
+set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
+set(PICO_PLATFORM "rp2040")
+set(PICO_TARGET "PICO")
+set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
+
+# include(pico-util.cmake)
+include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+pico_sdk_init()
+
 
 include("${CODAL_UTILS_LOCATION}")
 
@@ -17,18 +27,8 @@ RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE0 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.cp
 RECURSIVE_FIND_FILE(TOP_LEVEL_SOURCE1 "${CMAKE_CURRENT_SOURCE_DIR}/source" "*.c")
 
 list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
-
-set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
-set(PICO_PLATFORM "rp2040")
-set(PICO_TARGET "PICO")
-set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
-
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 
-include(pico-util.cmake)
-include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
-include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
-pico_sdk_init()
 
 add_subdirectory(${HAL_COMMON_ROOT})
 add_subdirectory(${HAL_RP2_COMMON_ROOT})
