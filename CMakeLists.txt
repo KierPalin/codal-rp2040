@@ -35,9 +35,37 @@ list(APPEND TOP_LEVEL_SOURCE0 "asm/CortexContextSwitch.s")
 # set(PICO_DEFAULT_BOOT_STAGE2 "boot2_w25q080") # second stage bootloader, read from flash chip
 
 
-add_subdirectory(${HAL_COMMON_ROOT})
-add_subdirectory(${HAL_RP2_COMMON_ROOT})
-add_subdirectory(${HAL_RP2040_ROOT})
+# add_subdirectory(${HAL_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2040_ROOT})
+
+set(HAL_INCLUDES
+    "${PICO_SRC_RP2040}/hardware_structs/include"
+    "${PICO_SRC_RP2_COMMON}/hardware_structs/include"
+    "${PICO_SRC_RP2040}/hardware_regs/include"
+    "${PICO_SRC_RP2_COMMON}/hardware_regs/include"
+    "${PICO_SRC_COMMON}/pico_base_headers/include"
+    "${PICO_SRC_RP2_COMMON}/include"
+
+    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Device/RaspberryPi/RP2040/Include"
+    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Core/Include"
+    "${PICO_SRC_RP2_COMMON}/cmsis/stub/CMSIS/Include"
+
+    ${HAL_RP2040_ROOT}/include
+    ${HAL_RP2_COMMON_ROOT}/include
+    ${HAL_COMMON_ROOT}/include
+    ${HAL_HOST_ROOT}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    ${HAL_STRUCTS_RP2040}
+    ${HAL_STRUCTS_RP2}
+    ${HAL_REGS_RP2040}
+    ${HAL_REGS_RP2}
+    ${PICO_BASE_HDRS}
+    ${RP2_COMMON_INC}
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+)
+
+
 
 set(TARGET_DEPS 
     cmsis_core
@@ -58,7 +86,8 @@ set(TARGET_DEPS
     hardware_divider
     pico_runtime
     pico_float
-    pico_double)
+    pico_double
+)
 
 include_directories(${HAL_INCLUDES})
 
