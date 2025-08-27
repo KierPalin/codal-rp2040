@@ -11,6 +11,7 @@ set(PICO_SRC_RP2040      "${PICO_SDK_PATH}/src/rp2040")
 set(PICO_SRC_RP2_COMMON  "${PICO_SDK_PATH}/src/rp2_common")
 set(PICO_SRC_COMMON      "${PICO_SDK_PATH}/src/common")
 set(PICO_SRC_HOST        "${PICO_SDK_PATH}/src/host")
+set(PICO_DEFAULT_BOOT_STAGE2_FILE "${PICO_SDK_PATH}/src/rp2_common/boot_stage2/boot2_generic_03h.S")
 
 include(pico-util.cmake)
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
