@@ -31,9 +31,9 @@ include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 pico_sdk_init()
 
-add_subdirectory(${HAL_COMMON_ROOT})
-add_subdirectory(${HAL_RP2_COMMON_ROOT})
-add_subdirectory(${HAL_RP2040_ROOT})
+# add_subdirectory(${HAL_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2_COMMON_ROOT})
+# add_subdirectory(${HAL_RP2040_ROOT})
 
 set(TARGET_DEPS 
     cmsis_core
