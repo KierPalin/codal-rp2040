@@ -2,13 +2,18 @@ cmake_minimum_required(VERSION 3.13)
 project(codal-rp2040)
 enable_language(ASM)
 
+# Setup the Pico SDK
 set(PICO_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/pico-sdk")
 set(PICO_PLATFORM "rp2040")
 set(PICO_TARGET "PICO")
 set(PICO_CONFIG_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/inc/sdk_config.h")
+set(PICO_SRC_RP2040      "${PICO_SDK_PATH}/src/rp2040")
+set(PICO_SRC_RP2_COMMON  "${PICO_SDK_PATH}/src/rp2_common")
+set(PICO_SRC_COMMON      "${PICO_SDK_PATH}/src/common")
+set(PICO_SRC_HOST        "${PICO_SDK_PATH}/src/host")
+set(PICO_DEFAULT_BOOT_STAGE2_FILE "${PICO_SDK_PATH}/src/rp2_common/boot_stage2/boot2_generic_03h.S")
 
-# include(pico-util.cmake)
-include(${HAL_COMMON_ROOT}/pico_base/generate_config_header.cmake)
+include(pico-util.cmake)
 include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
 pico_sdk_init()
 
